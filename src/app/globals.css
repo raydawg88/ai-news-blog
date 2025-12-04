@@ -807,6 +807,259 @@ a:hover {
   opacity: 0.5;
 }
 
+/* ===== SEGMENTED DISPLAY ===== */
+
+.segmented-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  height: 24px;
+}
+
+.segmented-digit {
+  height: 100%;
+  width: auto;
+}
+
+.segment-on {
+  fill: var(--color-ink);
+}
+
+.segment-off {
+  fill: var(--color-line);
+  opacity: 0.3;
+}
+
+.segmented-separator {
+  height: 100%;
+  width: auto;
+}
+
+.segmented-space {
+  width: 4px;
+}
+
+.segmented-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.segmented-date-month {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--color-ink);
+}
+
+.segmented-date-separator {
+  color: var(--color-ink-muted);
+  font-size: 0.75rem;
+}
+
+.segmented-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.segmented-time-unit {
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-muted);
+}
+
+/* ===== READING PROGRESS BAR ===== */
+
+.reading-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-paper);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.reading-progress-bar {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+
+.reading-progress-segment {
+  height: 8px;
+  flex: 1;
+  background: var(--color-line);
+  border-radius: 2px;
+  transition: background 0.1s ease;
+}
+
+.reading-progress-segment.filled {
+  background: var(--color-ink);
+}
+
+.reading-progress-percent {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-ink-muted);
+  min-width: 3ch;
+  text-align: right;
+}
+
+/* ===== PIXEL ICONS ===== */
+
+.pixel-icon {
+  display: inline-block;
+  color: currentColor;
+}
+
+/* ===== TERMINAL DECORATORS ===== */
+
+.terminal-prompt::before {
+  content: '> ';
+  color: var(--color-ink-muted);
+  opacity: 0.6;
+}
+
+.terminal-comment::before {
+  content: '// ';
+  color: var(--color-ink-muted);
+  opacity: 0.5;
+}
+
+.terminal-block::before {
+  content: '█ ';
+  color: var(--color-ink-muted);
+  opacity: 0.3;
+}
+
+/* Dashed border pattern */
+.dither-border {
+  border: 2px dashed var(--color-line);
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--color-ink) 0,
+    var(--color-ink) 4px,
+    transparent 4px,
+    transparent 8px
+  ) 2;
+}
+
+/* Dotted pattern background */
+.dither-bg {
+  background-image: radial-gradient(
+    var(--color-ink) 1px,
+    transparent 1px
+  );
+  background-size: 4px 4px;
+  background-position: 0 0;
+}
+
+.dither-bg-light {
+  background-image: radial-gradient(
+    var(--color-ink-muted) 0.5px,
+    transparent 0.5px
+  );
+  background-size: 6px 6px;
+  opacity: 0.1;
+}
+
+/* Halftone pattern */
+.halftone-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+    circle at center,
+    var(--color-ink) 1px,
+    transparent 1px
+  );
+  background-size: 3px 3px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Block characters for decorative separators */
+.block-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  color: var(--color-ink-muted);
+  opacity: 0.4;
+}
+
+.block-separator::before {
+  content: '░░░░░░░░░░░░░░░░░░░░';
+}
+
+/* Corner decorators */
+.corner-decorator {
+  position: relative;
+}
+
+.corner-decorator::before,
+.corner-decorator::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--color-ink);
+  border-style: solid;
+  opacity: 0.3;
+}
+
+.corner-decorator::before {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+}
+
+.corner-decorator::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+/* Status indicator with blocks */
+.status-blocks {
+  display: flex;
+  gap: 2px;
+}
+
+.status-block {
+  width: 8px;
+  height: 8px;
+  background: var(--color-line);
+}
+
+.status-block.active {
+  background: var(--color-ink);
+}
+
+/* Chevron pattern */
+.chevron-pattern {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 2px,
+    var(--color-line) 2px,
+    var(--color-line) 4px
+  );
+  opacity: 0.1;
+}
+
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 768px) {

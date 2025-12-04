@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Search, Clock, Calendar } from 'lucide-react';
+import { SearchIcon, CalendarIcon, ClockIcon } from './PixelIcons';
+import { SegmentedDate, SegmentedTime } from './SegmentedDisplay';
 
 interface Post {
   slug: string;
@@ -17,19 +18,10 @@ interface SearchableArticlesProps {
   posts: Post[];
 }
 
-// Format date as terminal style: dec_04_2024
-function formatTerminalDate(dateString: string): string {
-  const date = new Date(dateString);
-  const month = date.toLocaleDateString('en-US', { month: 'short' }).toLowerCase();
-  const day = date.getDate().toString().padStart(2, '0');
-  const year = date.getFullYear();
-  return `${month}_${day}_${year}`;
-}
-
-// Format reading time as terminal style: 5_min
-function formatTerminalReadingTime(readingTime: string): string {
+// Extract minutes from reading time string
+function extractMinutes(readingTime: string): number {
   const match = readingTime.match(/(\d+)/);
-  return match ? `${match[1]}_min` : readingTime;
+  return match ? parseInt(match[1], 10) : 5;
 }
 
 export function SearchableArticles({ posts }: SearchableArticlesProps) {
@@ -51,7 +43,7 @@ export function SearchableArticles({ posts }: SearchableArticlesProps) {
     <div>
       {/* Search Bar */}
       <div className="eink-search">
-        <Search size={18} strokeWidth={1.5} className="eink-search-icon" />
+        <SearchIcon size={18} className="eink-search-icon" />
         <input
           type="text"
           placeholder="search_articles..."
@@ -72,32 +64,32 @@ export function SearchableArticles({ posts }: SearchableArticlesProps) {
 
       {/* Results count when searching */}
       {query && (
-        <p className="eink-search-results">
+        <p className="eink-search-results terminal-comment">
           {filteredPosts.length} result{filteredPosts.length !== 1 ? 's' : ''} for "{query}"
         </p>
       )}
 
       {/* Article list */}
       {filteredPosts.length === 0 ? (
-        <p className="text-muted" style={{ padding: '2rem 0' }}>
+        <p className="text-muted terminal-prompt" style={{ padding: '2rem 0' }}>
           no_articles_found
         </p>
       ) : (
         <div>
-          {filteredPosts.map((post) => (
-            <article key={post.slug} className="eink-article">
+          {filteredPosts.map((post, index) => (
+            <article key={post.slug} className="eink-article corner-decorator">
               <Link href={`/posts/${post.slug}`} className="eink-article-title">
                 {post.title.toLowerCase()}
               </Link>
 
               <div className="eink-article-meta">
                 <span className="eink-meta-item">
-                  <Calendar size={12} strokeWidth={1.5} />
-                  {formatTerminalDate(post.date)}.date
+                  <CalendarIcon size={14} />
+                  <SegmentedDate date={post.date} />
                 </span>
                 <span className="eink-meta-item">
-                  <Clock size={12} strokeWidth={1.5} />
-                  {formatTerminalReadingTime(post.readingTime)}.read
+                  <ClockIcon size={14} />
+                  <SegmentedTime minutes={extractMinutes(post.readingTime)} />
                 </span>
               </div>
 
@@ -114,6 +106,16 @@ export function SearchableArticles({ posts }: SearchableArticlesProps) {
                   ))}
                 </div>
               )}
+
+              {/* Status blocks indicator */}
+              <div className="status-blocks" style={{ marginTop: '0.75rem' }}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`status-block ${i <= (4 - index) ? 'active' : ''}`}
+                  />
+                ))}
+              </div>
             </article>
           ))}
         </div>

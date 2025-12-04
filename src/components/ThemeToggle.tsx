@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { SunIcon, MoonIcon } from './PixelIcons';
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -35,9 +35,9 @@ export function ThemeToggle() {
       title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
       {theme === 'light' ? (
-        <Moon size={20} strokeWidth={1.5} />
+        <MoonIcon size={18} />
       ) : (
-        <Sun size={20} strokeWidth={1.5} />
+        <SunIcon size={18} />
       )}
       <span className="theme-toggle-label">
         {theme === 'light' ? 'dark' : 'light'}

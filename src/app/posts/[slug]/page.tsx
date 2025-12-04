@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Calendar, Clock, User, Share2, ArrowLeft } from 'lucide-react';
 import { getAllPostSlugs, getPostBySlug } from '@/lib/posts';
 import { MDXContent } from '@/components/mdx/MDXContent';
 import { siteConfig } from '@/lib/constants';
 import { ReadingProgress } from '@/components/ReadingProgress';
+import { ArrowLeftIcon, CalendarIcon, ClockIcon, UserIcon, ShareIcon } from '@/components/PixelIcons';
+import { SegmentedDate, SegmentedTime } from '@/components/SegmentedDisplay';
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -72,69 +73,78 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const articleUrl = `${siteConfig.url}/posts/${slug}`;
 
+  // Extract minutes from reading time
+  const readingMinutes = parseInt(post.readingTime.match(/(\d+)/)?.[1] || '5', 10);
+
   return (
     <>
       <ReadingProgress />
-      <article>
+      <article className="article-detail">
         {/* Back Link */}
         <Link
           href="/"
           className="eink-back-link"
         >
-          <ArrowLeft size={14} strokeWidth={1.5} />
+          <ArrowLeftIcon size={14} />
           back_to_articles
         </Link>
 
-      {/* Article Header */}
-      <header className="eink-header">
-        <h1 className="eink-page-title">
-          {post.frontmatter.title}
-        </h1>
+        {/* Article Header */}
+        <header className="eink-header">
+          <h1 className="eink-page-title">
+            {post.frontmatter.title}
+          </h1>
 
-        <div className="eink-article-meta">
-          <span className="eink-meta-item">
-            <Calendar size={14} strokeWidth={1.5} />
-            {formatTerminalDate(post.frontmatter.date)}.date
-          </span>
-          <span className="eink-meta-item">
-            <Clock size={14} strokeWidth={1.5} />
-            {formatTerminalReadingTime(post.readingTime)}.read
-          </span>
-          {post.frontmatter.author && (
+          <div className="eink-article-meta">
             <span className="eink-meta-item">
-              <User size={14} strokeWidth={1.5} />
-              {post.frontmatter.author.toLowerCase().replace(/\s+/g, '_')}.author
+              <CalendarIcon size={14} />
+              <SegmentedDate date={post.frontmatter.date} />
             </span>
-          )}
+            <span className="eink-meta-item">
+              <ClockIcon size={14} />
+              <SegmentedTime minutes={readingMinutes} />
+            </span>
+            {post.frontmatter.author && (
+              <span className="eink-meta-item">
+                <UserIcon size={14} />
+                <span className="author-name">{post.frontmatter.author.toLowerCase().replace(/\s+/g, '_')}</span>
+              </span>
+            )}
+          </div>
+        </header>
+
+        {/* Block separator before content */}
+        <div className="block-separator" />
+
+        {/* Article Content */}
+        <div className="eink-prose">
+          <MDXContent source={post.content} />
         </div>
-      </header>
 
-      {/* Article Content */}
-      <div className="eink-prose">
-        <MDXContent source={post.content} />
-      </div>
+        {/* Block separator before share */}
+        <div className="block-separator" />
 
-      {/* Share */}
-      <div className="eink-share">
-        <Share2 size={14} strokeWidth={1.5} />
-        <span className="eink-share-label">share:</span>
-        <a
-          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(post.frontmatter.title)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="eink-share-link"
-        >
-          twitter
-        </a>
-        <a
-          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="eink-share-link"
-        >
-          linkedin
-        </a>
-      </div>
+        {/* Share */}
+        <div className="eink-share">
+          <ShareIcon size={14} />
+          <span className="eink-share-label">share:</span>
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(post.frontmatter.title)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="eink-share-link"
+          >
+            twitter
+          </a>
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="eink-share-link"
+          >
+            linkedin
+          </a>
+        </div>
       </article>
     </>
   );

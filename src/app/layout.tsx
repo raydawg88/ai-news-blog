@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { EB_Garamond, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import Link from 'next/link';
-import { Home, FileText, User, Rss } from 'lucide-react';
 import { siteConfig } from '@/lib/constants';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { HomeIcon, ArticlesIcon, UserIcon, RssIcon } from '@/components/PixelIcons';
 import './globals.css';
 
 const ebGaramond = EB_Garamond({
@@ -96,20 +96,20 @@ export default function RootLayout({
           {/* Navigation */}
           <nav className="eink-nav">
             <Link href="/" className="eink-nav-logo">
-              <Home size={28} strokeWidth={1.5} />
+              <HomeIcon size={28} />
               <span>ai_ink</span>
             </Link>
             <div className="eink-nav-links">
               <Link href="/" className="eink-nav-link">
-                <FileText size={20} strokeWidth={1.5} />
+                <ArticlesIcon size={20} />
                 <span className="eink-menu-label">articles</span>
               </Link>
               <Link href="/about" className="eink-nav-link">
-                <User size={20} strokeWidth={1.5} />
+                <UserIcon size={20} />
                 <span className="eink-menu-label">about</span>
               </Link>
               <Link href="/rss.xml" className="eink-nav-link">
-                <Rss size={20} strokeWidth={1.5} />
+                <RssIcon size={20} />
                 <span className="eink-menu-label">rss</span>
               </Link>
               <ThemeToggle />
@@ -123,6 +123,8 @@ export default function RootLayout({
 
           {/* Footer - Status Bar Style */}
           <footer className="eink-footer">
+            <div className="block-separator" />
+
             <div className="eink-status">
               <span className="eink-status-item">ai_ink.publication</span>
               <span className="eink-status-item">weekly_dispatch.frequency</span>
@@ -136,13 +138,13 @@ export default function RootLayout({
               justifyContent: 'space-between',
               alignItems: 'center',
               fontSize: '0.8125rem',
-              color: 'var(--color-text-muted)'
+              color: 'var(--color-ink-muted)'
             }}>
-              <span>subscribe_via_rss</span>
+              <span className="terminal-prompt">subscribe_via_rss</span>
               <div style={{ display: 'flex', gap: '1.5rem' }}>
-                <Link href="/" style={{ color: 'var(--color-text-muted)' }}>home</Link>
-                <Link href="/about" style={{ color: 'var(--color-text-muted)' }}>about</Link>
-                <Link href="/rss.xml" style={{ color: 'var(--color-text-muted)' }}>rss</Link>
+                <Link href="/" style={{ color: 'var(--color-ink-muted)' }}>home</Link>
+                <Link href="/about" style={{ color: 'var(--color-ink-muted)' }}>about</Link>
+                <Link href="/rss.xml" style={{ color: 'var(--color-ink-muted)' }}>rss</Link>
               </div>
             </div>
           </footer>

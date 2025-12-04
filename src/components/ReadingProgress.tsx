@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 export function ReadingProgress() {
   const [progress, setProgress] = useState(0);
+  const segments = 20; // Number of pill segments
 
   useEffect(() => {
     const updateProgress = () => {
@@ -19,12 +20,19 @@ export function ReadingProgress() {
     return () => window.removeEventListener('scroll', updateProgress);
   }, []);
 
+  const filledSegments = Math.round((progress / 100) * segments);
+
   return (
-    <div className="eink-reading-progress" aria-hidden="true">
-      <div
-        className="eink-reading-progress-bar"
-        style={{ width: `${progress}%` }}
-      />
+    <div className="reading-progress-container" aria-hidden="true">
+      <div className="reading-progress-bar">
+        {Array.from({ length: segments }).map((_, i) => (
+          <div
+            key={i}
+            className={`reading-progress-segment ${i < filledSegments ? 'filled' : ''}`}
+          />
+        ))}
+      </div>
+      <span className="reading-progress-percent">{Math.round(progress)}%</span>
     </div>
   );
 }
