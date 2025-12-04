@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { SplitFlapCounter } from './SplitFlapCounter';
 
 export function ReadingProgress() {
   const [progress, setProgress] = useState(0);
@@ -32,7 +33,7 @@ export function ReadingProgress() {
           />
         ))}
       </div>
-      <span className="reading-progress-percent">{Math.round(progress)}%</span>
+      <SplitFlapCounter value={progress} suffix="%" />
     </div>
   );
 }

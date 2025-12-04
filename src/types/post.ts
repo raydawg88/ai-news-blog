@@ -9,6 +9,7 @@ export interface PostFrontmatter {
   featured?: boolean;
   image?: string;
   imageAlt?: string;
+  score?: number; // 1-5 rating for how good/interesting we think the article is
 }
 
 export interface Post {
@@ -26,4 +27,5 @@ export interface PostListItem {
   readingTime: string;
   tags?: string[];
   featured?: boolean;
+  score?: number; // 1-5 rating for how good/interesting we think the article is
 }

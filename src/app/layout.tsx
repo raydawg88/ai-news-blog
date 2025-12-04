@@ -3,7 +3,7 @@ import { EB_Garamond, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/constants';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { HomeIcon, ArticlesIcon, UserIcon, RssIcon } from '@/components/PixelIcons';
+import { HomeIcon, ArticleIcon, UserIcon, RssIcon } from '@/components/Icons';
 import './globals.css';
 
 const ebGaramond = EB_Garamond({
@@ -96,20 +96,20 @@ export default function RootLayout({
           {/* Navigation */}
           <nav className="eink-nav">
             <Link href="/" className="eink-nav-logo">
-              <HomeIcon size={28} />
+              <HomeIcon size={32} />
               <span>ai_ink</span>
             </Link>
             <div className="eink-nav-links">
               <Link href="/" className="eink-nav-link">
-                <ArticlesIcon size={20} />
+                <ArticleIcon size={18} />
                 <span className="eink-menu-label">articles</span>
               </Link>
               <Link href="/about" className="eink-nav-link">
-                <UserIcon size={20} />
+                <UserIcon size={18} />
                 <span className="eink-menu-label">about</span>
               </Link>
               <Link href="/rss.xml" className="eink-nav-link">
-                <RssIcon size={20} />
+                <RssIcon size={18} />
                 <span className="eink-menu-label">rss</span>
               </Link>
               <ThemeToggle />

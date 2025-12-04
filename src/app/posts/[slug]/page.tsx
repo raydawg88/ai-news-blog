@@ -5,7 +5,8 @@ import { getAllPostSlugs, getPostBySlug } from '@/lib/posts';
 import { MDXContent } from '@/components/mdx/MDXContent';
 import { siteConfig } from '@/lib/constants';
 import { ReadingProgress } from '@/components/ReadingProgress';
-import { ArrowLeftIcon, CalendarIcon, ClockIcon, UserIcon, ShareIcon } from '@/components/PixelIcons';
+import { DitheredImage } from '@/components/DitheredImage';
+import { ArrowLeftIcon, CalendarIcon, ClockIcon, UserIcon, ShareIcon } from '@/components/Icons';
 import { SegmentedDate, SegmentedTime } from '@/components/SegmentedDisplay';
 
 interface PostPageProps {
@@ -112,6 +113,16 @@ export default async function PostPage({ params }: PostPageProps) {
             )}
           </div>
         </header>
+
+        {/* Hero Image with dithered effect */}
+        {post.frontmatter.image && (
+          <DitheredImage
+            src={post.frontmatter.image}
+            alt={post.frontmatter.imageAlt || post.frontmatter.title}
+            className="article-hero-image"
+            priority
+          />
+        )}
 
         {/* Block separator before content */}
         <div className="block-separator" />

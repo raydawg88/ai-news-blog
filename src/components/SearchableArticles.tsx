@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { SearchIcon, CalendarIcon, ClockIcon } from './PixelIcons';
+import { SearchIcon, CalendarIcon, ClockIcon } from './Icons';
 import { SegmentedDate, SegmentedTime } from './SegmentedDisplay';
 
 interface Post {
@@ -12,6 +12,7 @@ interface Post {
   date: string;
   readingTime: string;
   tags?: string[];
+  score?: number; // 1-5 rating for how good/interesting we think the article is
 }
 
 interface SearchableArticlesProps {
@@ -107,14 +108,17 @@ export function SearchableArticles({ posts }: SearchableArticlesProps) {
                 </div>
               )}
 
-              {/* Status blocks indicator */}
-              <div className="status-blocks" style={{ marginTop: '0.75rem' }}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`status-block ${i <= (4 - index) ? 'active' : ''}`}
-                  />
-                ))}
+              {/* Interest score indicator - our rating of how good/interesting the article is */}
+              <div className="reading-depth" title="our interest score">
+                <span className="reading-depth-label">score:</span>
+                <div className="reading-depth-blocks">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`reading-depth-block ${i < (post.score ?? 3) ? 'filled' : ''}`}
+                    />
+                  ))}
+                </div>
               </div>
             </article>
           ))}

@@ -1,0 +1,80 @@
+---
+title: "Anthropic's Model Context Protocol: A Standard for AI Tool Integration"
+date: "2024-11-25"
+description: "Anthropic open-sourced MCP, a protocol that could become the USB-C of AI integrations. Here's why it matters for developers and the industry."
+tags: ["Anthropic", "Infrastructure", "Developer Tools", "Open Source"]
+image: "/images/posts/mcp-protocol.jpg"
+score: 5
+---
+
+On November 25, 2024, Anthropic [released the Model Context Protocol](https://www.anthropic.com/news/model-context-protocol) (MCP)—an open standard for connecting AI assistants to external data and tools. It's a technical infrastructure play that could reshape how AI applications are built.
+
+## The Problem MCP Solves
+
+Before MCP, connecting an AI model to external tools required custom integration work for every combination. Want Claude to access your company's Notion? Build a connector. Want it to query your database? Build another connector. Want it to use Slack? Another one.
+
+Anthropic describes this as an "N×M" problem: N AI applications times M tools equals a lot of redundant integration work.
+
+Previous solutions—like OpenAI's function calling and ChatGPT plugins—addressed pieces of this problem but were vendor-specific. MCP is designed to be a universal standard that any AI system can implement.
+
+## How It Works
+
+[MCP uses a client-server architecture](https://www.vktr.com/ai-technology/inside-anthropics-model-context-protocol-mcp-the-new-ai-data-standard/). AI applications (clients) connect to data sources and tools (servers) through a standardized protocol.
+
+The technical details:
+
+- **Transport**: JSON-RPC 2.0 over stdio or HTTP (with optional SSE)
+- **Message flow**: Deliberately similar to the Language Server Protocol (LSP) that powers IDE features
+- **SDKs**: Available in Python, TypeScript, C#, and Java
+
+For developers who've worked with LSP, this will feel familiar. The protocol handles the handshake, capability negotiation, and message routing—you just implement the actual functionality.
+
+## What's Available Now
+
+Anthropic released reference implementations for common integrations:
+
+- **Enterprise tools**: Google Drive, Slack, Notion
+- **Developer tools**: GitHub, Git, Postgres
+- **Automation**: Puppeteer for browser control
+
+More importantly, they released the specification as open source. Any company can build MCP servers without Anthropic's involvement.
+
+## Early Adoption
+
+The list of early adopters suggests where this is heading:
+
+- **Replit** integrated MCP into their AI coding features
+- **Cursor** uses it for contextual code assistance
+- **Sourcegraph** adopted it for codebase understanding
+- **Block** (Square's parent company) is implementing it for internal tools
+
+These are developer-focused tools, which makes sense—developers are the ones who'd build the next wave of integrations.
+
+## The Origin Story
+
+[According to the creators](https://newsletter.pragmaticengineer.com/p/mcp), MCP emerged from internal frustration. David Soria Parra, one of the protocol's authors, was working on developer tooling at Anthropic:
+
+> "Coming from a development tooling background, I quickly started to appreciate how amazing Claude Desktop is—with features like Artifacts—but got frustrated by how it had a limited feature set, with no way to extend it."
+
+Rather than build one-off extensions, they created a protocol that could enable extensibility for any AI application.
+
+## Why Open Source Matters Here
+
+Anthropic could have kept MCP proprietary—a competitive moat for Claude. Instead, they open-sourced it and explicitly designed it to be model-agnostic.
+
+The strategic logic: Anthropic benefits more from a healthy ecosystem of AI tools than from locking developers into Claude-specific integrations. If MCP becomes the standard, it reduces friction for the entire industry—including Anthropic's products.
+
+This mirrors how companies like Google benefited from open-sourcing Kubernetes. The standard became infrastructure everyone builds on.
+
+## What's Next
+
+As of March 2025, OpenAI [announced they would adopt MCP](https://openai.com/index/introducing-the-model-context-protocol/) across their products, including the ChatGPT desktop app. This is the clearest signal yet that MCP could become the industry standard rather than just an Anthropic initiative.
+
+For developers building AI applications: MCP is worth learning now. The protocol is stable, the tooling is maturing, and the adoption curve suggests it's not going away.
+
+## Sources
+
+- [Introducing the Model Context Protocol](https://www.anthropic.com/news/model-context-protocol) - Anthropic
+- [MCP Protocol: a new AI dev tools building block](https://newsletter.pragmaticengineer.com/p/mcp) - The Pragmatic Engineer
+- [Inside Anthropic's Model Context Protocol](https://www.vktr.com/ai-technology/inside-anthropics-model-context-protocol-mcp-the-new-ai-data-standard/) - VKTR
+- [Model Context Protocol - Wikipedia](https://en.wikipedia.org/wiki/Model_Context_Protocol)

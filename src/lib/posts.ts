@@ -46,6 +46,7 @@ export async function getAllPosts(): Promise<PostListItem[]> {
         readingTime: readingTimeText,
         tags: frontmatter.tags,
         featured: frontmatter.featured,
+        score: frontmatter.score,
       };
     })
     .filter((post): post is NonNullable<typeof post> => post !== null)

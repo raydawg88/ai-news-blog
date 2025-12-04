@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { SunIcon, MoonIcon } from './PixelIcons';
+import { SunIcon, MoonIcon } from './Icons';
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
