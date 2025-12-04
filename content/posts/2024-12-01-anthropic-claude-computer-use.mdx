@@ -1,0 +1,50 @@
+---
+title: "Anthropic's Computer Use: AI Agents That Can Click"
+date: "2024-12-01"
+description: "Analyzing Anthropic's new capability that allows Claude to control computer interfaces. What works, what doesn't, and why it matters."
+tags: ["Anthropic", "Agents", "Claude"]
+---
+
+Anthropic recently released "computer use" in Claude—the ability for the AI to see your screen, move the mouse, and click buttons. It sounds like science fiction, but the reality is both more mundane and more interesting than the headlines suggest.
+
+## How It Actually Works
+
+The implementation is surprisingly straightforward. Claude receives screenshots of your desktop, interprets what it sees, and outputs coordinates for mouse clicks or keyboard inputs. Your computer executes those commands.
+
+This is not sophisticated computer vision magic. It's pattern matching on visual inputs combined with Claude's understanding of common interface patterns. The model has seen enough screenshots to recognize buttons, text fields, and navigation elements.
+
+## What It Can Do
+
+In testing, computer use works reasonably well for:
+
+- **Form filling.** Given clear instructions, Claude can navigate web forms and enter data
+- **Simple workflows.** Repetitive multi-step tasks in familiar applications
+- **Data extraction.** Reading information from screens and compiling it
+
+The model struggles with:
+
+- **Ambiguous interfaces.** Custom or unusual UI patterns confuse it
+- **Dynamic content.** Rapidly changing screens cause errors
+- **Complex reasoning.** Multi-step tasks requiring judgment remain unreliable
+
+## The Real Significance
+
+Computer use isn't magic—it's infrastructure. The significance isn't that AI can click buttons (humans can do that). It's that AI can now interact with software that wasn't designed for AI.
+
+Previously, AI agents needed APIs or structured data. Now they can work with the same interfaces humans use. This dramatically expands what's automatable without requiring custom integrations.
+
+## Security Considerations
+
+Giving AI control of your computer raises obvious concerns:
+
+- What happens if the model misunderstands an instruction?
+- How do you audit actions taken on your behalf?
+- What are the attack vectors for manipulating AI-controlled systems?
+
+These aren't hypothetical concerns. Anyone deploying computer use in production needs robust safeguards, logging, and human oversight mechanisms.
+
+## Looking Forward
+
+Computer use is a building block, not a finished product. The current implementation is slow, expensive, and error-prone. But the trajectory matters more than the starting point.
+
+If these capabilities continue improving at the current rate, AI agents that genuinely handle complex computer tasks are plausible within a few years. That's worth paying attention to.
